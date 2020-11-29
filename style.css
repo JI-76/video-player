@@ -1,3 +1,5 @@
+/* style.css */
+
 :root {
   --primary-color: dodgerblue;
   --font-color: white;
@@ -24,6 +26,7 @@ body {
 }
 
 .player {
+  /* 80% of window width */
   max-width: 80vw;
   min-width: 800px;
   border: 5px solid black;
@@ -33,9 +36,12 @@ body {
   cursor: pointer;
 }
 
+/* Style the child Video element <video> class="video" to fit in the video player */
 video {
   border-radius: 5px;
-
+  /* 100% of its parent container ie. .player */
+  width: 100%;
+  height: auto;
 }
 
 /* Containers */
@@ -208,6 +214,10 @@ select > option {
 /* Media Query: Large Smartphone (Vertical) */
 @media screen and (max-width: 600px) {
 
+  .player {
+  min-width: 0;
+  max-width: 95vw;
+  }
 
   .fas {
     font-size: 20px;
