@@ -94,22 +94,33 @@ video {
 }
 
 /* Progress Bar */
+/* Style the child Div element <div> class="progress-range" */
 .progress-range {
-
+  height: 8px;
+  /* width: 100%; */
+  /* Size to fit within control */
+  width: calc(100% - 30px);
+  background: rgba(202, 202, 202, 0.5);
   margin: auto;
   border-radius: 10px;
   position: absolute;
   left: 15px;
   top: 15px;
   cursor: pointer;
-
+  transition: height 0.1s ease-in-out;
 }
 
+/* pseudo class for behavior */
+/* Change  size slightly when cursor is hovering over control */
+.progress-range:hover {
+  height:10px;
+}
 
-
+/* Style the child Div element <div> class="progress-bar" */
 .progress-bar {
   background: var(--primary-color);
-  width: 50%;
+  /* width: 50%; */
+  width: 20%;
   height: 100%;
   border-radius: 10px;
   transition: all 0.5s ease;
