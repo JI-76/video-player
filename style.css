@@ -189,10 +189,14 @@ video {
   margin-right: 15px;
 }
 
+select,
+option {
+  cursor: pointer;
+}
 
-
+/* child Select element <select> name="playbackRate" class="player-speed" */
 select {
-
+  background: transparent;
   color: var(--font-color);
   border: none;
   font-size: 18px;
@@ -201,7 +205,10 @@ select {
   border-radius: 5px;
 }
 
-
+/* pseudo class for behavior - focus */
+select:focus {
+  outline: none;
+}
 
 select > option {
   background: rgba(0, 0, 0, 0.9);
