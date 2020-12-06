@@ -43,10 +43,28 @@ function togglePlay() {
 video.addEventListener('ended', showPlayIcon);
 
 // Progress Bar ---------------------------------- //
+
+// Calculate Display Time format
+function displayTime(time) {
+    // minutes
+    const minutes = Math.floor(time / 60);
+    // seconds
+    // for number < 10 add preceeding "0"
+    let seconds = Math.floor(time % 60);
+    seconds = seconds > 9 ? seconds : `0${seconds}`;
+    //console.log(minutes, seconds);
+    return `${minutes}:${seconds}`;
+};
+
+
 // Update Progress Bar as Video plays
 function updateProgress() {
     // console.log('currentTime', video.currentTime, 'duration', video.duration);
     progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+    // should display as 01:04 minutes
+    //displayTime(64);
+    currentTime.textContent = `${displayTime(video.currentTime)} /`;
+    duration.textContent = `${displayTime(video.duration)}`;
 };
 
 
