@@ -76,7 +76,7 @@ function setProgress(e) {
     const newTime = e.offsetX / progressRange.offsetWidth;
     // update progress bar location to %
     progressBar.style.width = `${newTime * 100}%`;
-    // update progress bar appearance to display the % completed
+    // update the video to the new location
     video.currentTime = newTime * video.duration;
 
     // console.log(newTime);
@@ -84,6 +84,38 @@ function setProgress(e) {
 
 // Volume Controls --------------------------- //
 
+// Volume Bar
+function changeVolume(e) {
+    // .offsetX property is where on the volume bar the click occurred
+    // .offsetWidth property is the total widith of the volume bar
+    let volume = e.offsetX / volumeRange.offsetWidth;
+    // Rounding Volume down
+    if (volume < 0.1) {
+        volume = 0;
+    };
+    // Rounding Volume up
+    if (volume > 0.9) {
+        volume = 1;
+    };
+    // update volume bar location to %
+    volumeBar.style.width = `${volume * 100}%`;
+    // update the video volume to the new %
+    video.volume = volume;
+
+    // Change Icon depending on volume
+    // remove icon via its class
+    volumeIcon.className = '';
+    // add back an icon depending on the chosen volume
+    if (volume > 0.7) {
+        volumeIcon.classList.add('fas', 'fa-volume-up');
+    } else if (volume < 0.7 && volume > 0) {
+        volumeIcon.classList.add('fas', 'fa-volume-down');
+    } else if (volume === 0) {
+        volumeIcon.classList.add('fas', 'fa-volume-off');
+    };
+    
+    // console.log(volume);
+};
 
 
 // Change Playback Speed -------------------- //
@@ -103,3 +135,5 @@ video.addEventListener('timeupdate', updateProgress);
 video.addEventListener('canplay', updateProgress);
 // fire when progress bar is clicked
 progressRange.addEventListener('click', setProgress);
+// fire when Volume Bar is clicked
+volumeRange.addEventListener('click', changeVolume);
