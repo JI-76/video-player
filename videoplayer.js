@@ -67,6 +67,20 @@ function updateProgress() {
     duration.textContent = `${displayTime(video.duration)}`;
 };
 
+// Click to Seek within video
+// Event = e
+function setProgress(e) {
+    // console.log(e);
+    // .offsetX property is where on the progress bar the click occurred
+    // .offsetWidth property is the total widith of the progress bar
+    const newTime = e.offsetX / progressRange.offsetWidth;
+    // update progress bar location to %
+    progressBar.style.width = `${newTime * 100}%`;
+    // update progress bar appearance to display the % completed
+    video.currentTime = newTime * video.duration;
+
+    // console.log(newTime);
+};
 
 // Volume Controls --------------------------- //
 
@@ -87,3 +101,5 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('timeupdate', updateProgress);
 // fires when video is fully loaded
 video.addEventListener('canplay', updateProgress);
+// fire when progress bar is clicked
+progressRange.addEventListener('click', setProgress);
