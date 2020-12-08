@@ -84,6 +84,10 @@ function setProgress(e) {
 
 // Volume Controls --------------------------- //
 
+// Add global variable to mute volume on\off
+// by default, video.volume attribute is set to 1 aka 100%
+let lastVolume = 1;
+
 // Volume Bar
 function changeVolume(e) {
     // .offsetX property is where on the volume bar the click occurred
@@ -114,9 +118,35 @@ function changeVolume(e) {
         volumeIcon.classList.add('fas', 'fa-volume-off');
     };
     
+    // store volume setting
+    lastVolume = volume;
     // console.log(volume);
 };
 
+// Mute/Unmute
+function toggleMute() {
+
+    volumeIcon.className = '';
+    // if volume > 0
+    if (video.volume) {
+        lastVolume = video.volume;
+        // toggle from unmute to mute
+        video.volume = 0;
+        // update volume bar location to 0%
+        volumeBar.style.width = 0;
+        // update the volume icon appearance to mute
+        volumeIcon.classList.add('fas', 'fa-volume-mute');
+        volumeIcon.setAttribute('title', 'Unmute');
+    } else {
+        // toggle from mute to unmute
+        video.volume = lastVolume;
+        // update volume bar location to %
+        volumeBar.style.width = `${lastVolume * 100}%`;
+        // update the volume icon appearance to unmute
+        volumeIcon.classList.add('fas', 'fa-volume-up');
+        volumeIcon.setAttribute('title', 'Mute');
+    };
+};
 
 // Change Playback Speed -------------------- //
 
@@ -137,3 +167,5 @@ video.addEventListener('canplay', updateProgress);
 progressRange.addEventListener('click', setProgress);
 // fire when Volume Bar is clicked
 volumeRange.addEventListener('click', changeVolume);
+// fire when Volume Icon is clicked
+volumeIcon.addEventListener('click', toggleMute);
