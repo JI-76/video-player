@@ -4,6 +4,7 @@
 // Add const to handle HTML Elements
 // Use document.getElementById() with Ids
 // Use document.querySelector() with Class names or the Element itself (only 1 of these HTML elements on the webpage)
+const player = document.querySelector('.player');
 const video = document.querySelector('video');
 const progressRange = document.querySelector('.progress-range');
 const progressBar = document.querySelector('.progress-bar');
@@ -160,10 +161,56 @@ function changeSpeed() {
 
 // Fullscreen ------------------------------- //
 
+/* View in fullscreen */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullscreen) { /* Firefox */
+      elem.mozRequestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari, and Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
 
+    // ensure player remains centered
+    video.classList.add('video-fullscreen');
+};
+    
+ /* Close fullscreen */
+ function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }  else if (elem.mozCancelFullscreen) { /* Firefox */
+      elem.mozCancelFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari, and Opera */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+    }
+
+    // ensure player remains centered
+    video.classList.remove('video-fullscreen');
+};
+
+// add global variable to handle fullscreen functionality state
+let fullscreen = false;
+
+// Toggle Fullscreen
+function toggleFullscreen() {
+    if (!fullscreen) {
+        openFullscreen(player);
+    } else {
+        closeFullscreen();
+    };
+    // store the opposite state
+    fullscreen = !fullscreen;
+};
 
 // Event Listeners
+// fire when play button is clicked
 playBtn.addEventListener('click', togglePlay);
+// fire when ideo is clicked
 video.addEventListener('click', togglePlay);
 // fires 4 times/sec
 video.addEventListener('timeupdate', updateProgress);
@@ -171,9 +218,11 @@ video.addEventListener('timeupdate', updateProgress);
 video.addEventListener('canplay', updateProgress);
 // fire when progress bar is clicked
 progressRange.addEventListener('click', setProgress);
-// fire when Volume Bar is clicked
+// fire when volume bar is clicked
 volumeRange.addEventListener('click', changeVolume);
-// fire when Volume Icon is clicked
+// fire when volume icon is clicked
 volumeIcon.addEventListener('click', toggleMute);
-// fire when Playback Selector value changes
+// fire when playback selector value changes
 speed.addEventListener('change', changeSpeed);
+// fire when fullscreen button is clicked
+fullscreenBtn.addEventListener('click', toggleFullscreen);
